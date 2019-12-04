@@ -44,7 +44,8 @@ namespace GYM.Data
             Company cp1 = new Company("AIO", "aio@aio", "Piracicaba", "Novo Horizonte", "SP", "0909", "0909", "09090", DateTime.Now);
             Company cp2 = new Company("Smart", "Smart@Smart", "Piracicaba", "Novo Horizonte", "SP", "0909", "0909", "09090", DateTime.Now);
 
-            Employee em1 = new Employee("00000", "00000", "Truck", "Men", DateTime.Now, "000", "000", "123", "900", "8", "Maria", "0", null, "Father", "000", "000", "asdf", "admin", "admin", null, DateTime.Now, DateTime.Now, Status.Offline, StatusAccount.Liberat, cp1, p1);
+            Employee em = new Employee();
+            Employee em1 = new Employee("00000", "00000", "Truck", "Men", DateTime.Now, "000", "000", "123", "900", "8", "Maria", "0", null, "Father", "000", "000", "asdf", "admin", em.EncryptHash("admin"), null, DateTime.Now, DateTime.Now, Status.Offline, StatusAccount.Liberat, cp1, p1);
 
             Provider pr1 = new Provider("0909", "09090", "Wather", DateTime.Now, DateTime.Now, StatusRegister.Enable, p3);
             Provider pr2 = new Provider("0909", "09090", "Tools", DateTime.Now, DateTime.Now, StatusRegister.Disable, p4);

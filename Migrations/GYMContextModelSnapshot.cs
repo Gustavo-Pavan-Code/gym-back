@@ -265,7 +265,7 @@ namespace GYM.Migrations
                     b.Property<string>("DateRegister")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("Expiration")
+                    b.Property<DateTime?>("Expiration")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Gender")
@@ -297,8 +297,8 @@ namespace GYM.Migrations
 
                     b.Property<string>("Password")
                         .IsRequired()
-                        .HasColumnType("nvarchar(30)")
-                        .HasMaxLength(30);
+                        .HasColumnType("nvarchar(255)")
+                        .HasMaxLength(255);
 
                     b.Property<int>("PersonId")
                         .HasColumnType("int");

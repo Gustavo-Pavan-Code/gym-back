@@ -30,7 +30,7 @@ namespace GYM.Services
 
                 Employee employee = new Employee();
                 string hash = employee.EncryptHash(password);
-                var em = _gym.EmployeeContext.Where(x => x.UserLogin == user && x.Password == password);
+                var em = _gym.EmployeeContext.Where(x => x.UserLogin == user && x.Password == hash);
 
                 if (em.Count() > 0)
                 {

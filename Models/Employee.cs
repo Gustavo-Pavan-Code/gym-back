@@ -35,7 +35,7 @@ namespace GYM.Models
         [MaxLength(30, ErrorMessage = "This Name maxlength is 30")]
         public string UserLogin { get; set; }
         [Required(ErrorMessage = "This Password is required")]
-        [MaxLength(30, ErrorMessage = "This Password maxlength is 30")]
+        [MaxLength(255, ErrorMessage = "This Password maxlength is 30")]
         public string Password { get; set; }
         public string Token { get; set; }
         public Nullable<DateTime> Expiration { get; set; }
