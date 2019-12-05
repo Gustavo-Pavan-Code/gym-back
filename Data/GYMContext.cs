@@ -26,5 +26,8 @@ namespace GYM.Data
         public DbSet<Telephone> TelephoneContext{ get; set; }
         public DbSet<Company> CompanyContext { get; set; }
         public DbSet<Branch> BranchContext { get; set; }
+        public DbSet<Rule> RuleContext { get; set; }
+        public DbSet<RulesProfiles> RulesProfilesContext{ get; set; }
+        public DbSet<ProfileRule> ProfileRuleContext { get; set; }
     }
 }

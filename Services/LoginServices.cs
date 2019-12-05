@@ -126,7 +126,7 @@ namespace GYM.Services
             }
         }
 
-        public bool ValidToken(string token)
+        public Employee ValidToken(string token)
         {
             try
             {
@@ -134,12 +134,12 @@ namespace GYM.Services
                 {
                     throw new NotFoundException("This token is not valid");
                 }
-                var valid = _gym.EmployeeContext.Where(x => x.Token == token && x.Expiration >= DateTime.Now);
-                if (valid.Count() > 0)
+                Employee emp = _gym.EmployeeContext.Where(x => x.Token == token && x.Expiration >= DateTime.Now).Include(x => x.Person).FirstOrDefault();
+                if (emp != null)
                 {
-                    return true;
+                    return emp;
                 }
-                return false;
+                return null;
             }
             catch (Exception ex)
             {

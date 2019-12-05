@@ -368,6 +368,24 @@ namespace GYM.Migrations
                     b.ToTable("PersonContext");
                 });
 
+            modelBuilder.Entity("GYM.Models.ProfileRule", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Label")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("ProfileRuleContext");
+                });
+
             modelBuilder.Entity("GYM.Models.Provider", b =>
                 {
                     b.Property<int>("Id")
@@ -405,6 +423,51 @@ namespace GYM.Migrations
                     b.HasIndex("PersonId");
 
                     b.ToTable("ProviderContext");
+                });
+
+            modelBuilder.Entity("GYM.Models.Rule", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Label")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("RuleContext");
+                });
+
+            modelBuilder.Entity("GYM.Models.RulesProfiles", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("PersonId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ProfileRuleId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("RuleId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("PersonId");
+
+                    b.HasIndex("ProfileRuleId");
+
+                    b.HasIndex("RuleId");
+
+                    b.ToTable("RulesProfilesContext");
                 });
 
             modelBuilder.Entity("GYM.Models.Telephone", b =>
@@ -495,6 +558,27 @@ namespace GYM.Migrations
                     b.HasOne("GYM.Models.Person", "Person")
                         .WithMany("Providers")
                         .HasForeignKey("PersonId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("GYM.Models.RulesProfiles", b =>
+                {
+                    b.HasOne("GYM.Models.Person", "Person")
+                        .WithMany()
+                        .HasForeignKey("PersonId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("GYM.Models.ProfileRule", "ProfileRule")
+                        .WithMany("RulesProfiles")
+                        .HasForeignKey("ProfileRuleId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("GYM.Models.Rule", "Rule")
+                        .WithMany("RulesProfiles")
+                        .HasForeignKey("RuleId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });

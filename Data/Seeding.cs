@@ -62,6 +62,22 @@ namespace GYM.Data
             Branch branch2 = new Branch("Smart", "Smart@Smart", "Rio Claro", "Center", "SP", "090909", "09090990", "76767", DateTime.Now, StatusRegister.Enable, cp2);
             Branch branch3 = new Branch("Smart", "Smart@Smart", "São Pedro", "Center", "SP", "090909", "09090990", "76767", DateTime.Now, StatusRegister.Enable, cp2);
 
+            Rule rul1 = new Rule("Teste","te");
+            Rule rul2 = new Rule("Salvar","salvar");
+            Rule rul3 = new Rule("Editar","editar");
+            Rule rul4 = new Rule("Excluir","excluir");
+
+            ProfileRule prs1 = new ProfileRule("Admin","admin");
+            ProfileRule prs2 = new ProfileRule("Normal","normal");
+            ProfileRule prs3 = new ProfileRule("Director","director");
+
+            RulesProfiles rp1 = new RulesProfiles(p1,rul1,prs1);
+            RulesProfiles rp2 = new RulesProfiles(p1,rul2, prs1);
+            RulesProfiles rp3 = new RulesProfiles(p1,rul3, prs3);
+            RulesProfiles rp4 = new RulesProfiles(p2,rul1, prs2);
+            RulesProfiles rp5 = new RulesProfiles(p1,rul2, prs2);
+            RulesProfiles rp6 = new RulesProfiles(p1,rul4, prs1);
+
             _gym.PersonContext.AddRange(p1, p2, p3, p4);
             _gym.ClientContext.AddRange(cl1, cl2);
             _gym.CompanyContext.AddRange(cp1, cp2);
@@ -71,6 +87,9 @@ namespace GYM.Data
             _gym.AddressContext.AddRange(ad, ad1);
             _gym.TelephoneContext.AddRange(t1, t2);
             _gym.BranchContext.AddRange(branch1, branch2, branch3);
+            _gym.RuleContext.AddRange(rul1, rul2,rul3,rul4);
+            _gym.ProfileRuleContext.AddRange(prs1, prs2, prs3);
+            _gym.RulesProfilesContext.AddRange(rp1,rp2,rp3,rp4,rp5,rp6);
 
             _gym.SaveChanges();
         }

@@ -43,6 +43,34 @@ namespace GYM.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "ProfileRuleContext",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(nullable: true),
+                    Label = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ProfileRuleContext", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "RuleContext",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(nullable: true),
+                    Label = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_RuleContext", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "BranchContext",
                 columns: table => new
                 {
@@ -240,6 +268,39 @@ namespace GYM.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "RulesProfilesContext",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    PersonId = table.Column<int>(nullable: false),
+                    RuleId = table.Column<int>(nullable: false),
+                    ProfileRuleId = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_RulesProfilesContext", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_RulesProfilesContext_PersonContext_PersonId",
+                        column: x => x.PersonId,
+                        principalTable: "PersonContext",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_RulesProfilesContext_ProfileRuleContext_ProfileRuleId",
+                        column: x => x.ProfileRuleId,
+                        principalTable: "ProfileRuleContext",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_RulesProfilesContext_RuleContext_RuleId",
+                        column: x => x.RuleId,
+                        principalTable: "RuleContext",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
             migrationBuilder.CreateIndex(
                 name: "IX_AddressContext_PersonId",
                 table: "AddressContext",
@@ -276,6 +337,21 @@ namespace GYM.Migrations
                 column: "PersonId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_RulesProfilesContext_PersonId",
+                table: "RulesProfilesContext",
+                column: "PersonId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_RulesProfilesContext_ProfileRuleId",
+                table: "RulesProfilesContext",
+                column: "ProfileRuleId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_RulesProfilesContext_RuleId",
+                table: "RulesProfilesContext",
+                column: "RuleId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_TelephoneContext_PersonId",
                 table: "TelephoneContext",
                 column: "PersonId");
@@ -302,10 +378,19 @@ namespace GYM.Migrations
                 name: "ProviderContext");
 
             migrationBuilder.DropTable(
+                name: "RulesProfilesContext");
+
+            migrationBuilder.DropTable(
                 name: "TelephoneContext");
 
             migrationBuilder.DropTable(
                 name: "CompanyContext");
+
+            migrationBuilder.DropTable(
+                name: "ProfileRuleContext");
+
+            migrationBuilder.DropTable(
+                name: "RuleContext");
 
             migrationBuilder.DropTable(
                 name: "PersonContext");
