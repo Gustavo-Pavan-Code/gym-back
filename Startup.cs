@@ -29,6 +29,8 @@ namespace GYM
             services.AddScoped<Seeding>();
             services.AddScoped<LoginServices>();
             services.AddScoped<RuleServices>();
+            services.AddScoped<UserServices>();
+            services.AddScoped<ProfileRuleServices>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -11,10 +11,12 @@ namespace GYM.Controllers
     public class LoginController : Controller
     {
         private readonly LoginServices _service;
+        private readonly UserServices _userServices;
 
-        public LoginController(LoginServices service)
+        public LoginController(LoginServices service, UserServices userServices)
         {
             _service = service;
+            _userServices = userServices;
         }
 
         [HttpPost]
@@ -55,17 +57,17 @@ namespace GYM.Controllers
                 throw new Exception(ex.Message);
             }
         }
-        [HttpPost("reset")]
-        public ActionResult ResetToken([FromBody]CredentialTransfers tok)
+        [HttpGet("reset")]
+        public ActionResult ResetToken([FromHeader] string Authorization)
         {
             try
             {
-                if (tok.token == null || tok.token == "")
+                if (Authorization == null || Authorization == "")
                 {
                     return BadRequest("Argument is null");
                 }
 
-                LoginTransfers obj = _service.ResetToken(tok.token);
+                LoginTransfers obj = _userServices.ResetToken(Authorization);
                 if (obj.Auth)
                 {
                     return StatusCode(200, obj);
@@ -80,17 +82,17 @@ namespace GYM.Controllers
                 throw new Exception(ex.Message);
             }
         }
-        [HttpPost("logout")]
-        public ActionResult Logout([FromBody]CredentialTransfers tok)
+        [HttpGet("logout")]
+        public ActionResult Logout([FromHeader] string Authorization)
         {
             try
             {
-                if (tok.token == null || tok.token == "")
+                if (Authorization == null || Authorization == "")
                 {
                     return BadRequest("Argument is null");
                 }
 
-                LoginTransfers obj = _service.Logout(tok.token);
+                LoginTransfers obj = _service.Logout(Authorization);
                 if (obj.Auth)
                 {
                     return StatusCode(200, obj);
